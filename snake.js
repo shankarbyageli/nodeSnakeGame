@@ -37,13 +37,6 @@ const autoRunGame = function() {
   autoGamePlay();
 };
 
-const main = function() {
-  process.stdin.on('data', (chunk) => {
-    gamePlay(chunk);
-  });
-  setInterval(autoRunGame, 300);
-};
-
 const changeDirection = function(direction) {
   snake[0].dir = direction;
   moveIndir();
@@ -160,6 +153,9 @@ let gamePlay = function(input) {
   const keyStroke = ['w','d','s','a'];
   const moveDir = keyStroke.indexOf(input); 
   if(moveDir != -1) {
+    if(Math.abs(moveDir-snake[0].dir)==2) {
+      return ;
+    }
     changeDirection(moveDir);
   }
   console.clear();
@@ -180,8 +176,11 @@ let gamePlay = function(input) {
   }
 };
 
-main();
+const main = function() {
+  process.stdin.on('data', (chunk) => {
+    gamePlay(chunk);
+  });
+  setInterval(autoRunGame, 300);
+};
 
-process.stdin.on('end', () => {
-  console.log("exited the game !")
-});
+main();

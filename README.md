@@ -12,8 +12,7 @@ node snake.js
 ```
 
 ### Control keys
-  
-  -w : up,
-  -d : right,
-  -s : down,
-  -a : left
+- w : up
+- d : right
+- s : down
+- a : left

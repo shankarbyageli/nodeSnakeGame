@@ -1,12 +1,19 @@
 # snakeGame
 Snake Game in Javascript.
 
-How to Play : 
-  Clone the repo using clone link.
-  run the game using : node snake.js
+## Installation process
+```
+git clone https://github.com/shankarbyageli/snakeGame.git
+```
+
+### How to run the command
+```
+node snake.js
+```
+
+### Control keys
   
-Controls :
-  w : up,
-  d : right,
-  s : down,
-  a : left
+  -w : up,
+  -d : right,
+  -s : down,
+  -a : left

@@ -92,9 +92,7 @@ const generateNewFood = function() {
 const crashedToWall = function() {
   const width = process.stdout.columns;
   const height = process.stdout.rows - 2;
-  return snake.some(function(body) {
-    return (body.x <= 0 || body.y <= 0) || (body.x >= width || body.y >= height);
-  });
+  return (snake[0].x < 0 || snake[0].y < 0) || (snake[0].x >= width || snake[0].y >= height);
 };
 
 const isTouchBody = function() {
@@ -177,8 +175,8 @@ let gamePlay = function(input) {
 };
 
 const main = function() {
-  process.stdin.on('data', (chunk) => {
-    gamePlay(chunk);
+  process.stdin.on('data', (input) => {
+    gamePlay(input);
   });
   setInterval(autoRunGame, 300);
 };

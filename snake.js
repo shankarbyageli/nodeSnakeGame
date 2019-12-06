@@ -145,6 +145,9 @@ const getNewTailCords = function() {
 
 let gamePlay = function(input) {
   if(input == 'q') {
+    console.log("Score : ",score);
+    console.log("You exited the game !");
+    process.stdout.write('\x1B[?25h');
     process.exit(0);
   }
   input = input.toString();
@@ -165,11 +168,13 @@ let gamePlay = function(input) {
   if(isTouchBody()) {
     console.log("Score : ",score);
     console.log("Touched snake body! Game over!");
+    stdout.write('\x1B[?25h');
     process.exit(0);
   }
   if(crashedToWall()) {
     console.log("Score : ",score);
     console.log("You crashed to wall ! Game Over !");
+    process.stdout.write('\x1B[?25h');
     process.exit(0);
   }
 };
@@ -178,6 +183,7 @@ const main = function() {
   process.stdin.on('data', (input) => {
     gamePlay(input);
   });
+  process.stdout.write('\x1B[?25l');
   setInterval(autoRunGame, 300);
 };
 

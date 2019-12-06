@@ -168,7 +168,7 @@ let gamePlay = function(input) {
   if(isTouchBody()) {
     console.log("Score : ",score);
     console.log("Touched snake body! Game over!");
-    stdout.write('\x1B[?25h');
+    process.stdout.write('\x1B[?25h');
     process.exit(0);
   }
   if(crashedToWall()) {

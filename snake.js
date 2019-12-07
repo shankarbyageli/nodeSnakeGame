@@ -50,19 +50,10 @@ const changeDirection = function(direction) {
 };
 
 const moveIndir = function() {
+  const operations = ["y -= 1", "x += 1", "y += 1", "x -= 1"];
   for(i in snake) {
-    if(snake[i].dir == 0) {
-      snake[i].y -= 1;
-    }
-    if(snake[i].dir == 1) {
-      snake[i].x += 1;
-    }
-    if(snake[i].dir == 2) {
-      snake[i].y += 1;
-    }
-    if(snake[i].dir == 3) {
-      snake[i].x -= 1;
-    }
+    const operation = snake[i].dir;
+    eval(`snake[i].${operations[operation]}`);
   }
 };
 
@@ -124,31 +115,17 @@ const checkFoodAte = function() {
 const gameOverMsg = function(string) {
   console.log("\nScore : ",score);
   console.log(string);
+  console.log("Game Over !");
   console.log('\x1B[?25h');
   process.exit(0);
 };
 
 const getNewTailCords = function() {
+  const operations = [["x","y+1"],["x-1","y"],["x","y-1"],["x+1","y"]];
   let tail = {};
   const tailDir = snake[snake.length-1].dir;
-  const tailPos = snake.length - 1;
-
-  if(tailDir == 0) {
-    tail.x = snake[tailPos].x;
-    tail.y = snake[tailPos].y+1;
-  }
-  if(tailDir == 1) {
-    tail.x = snake[tailPos].x-1;
-    tail.y = snake[tailPos].y;
-  }
-  if(tailDir == 2) {
-    tail.x = snake[tailPos].x
-    tail.y = snake[tailPos].y-1;
-  }
-  if(tailDir == 3) {
-    tail.x = snake[tailPos].x+1
-    tail.y = snake[tailPos].y;
-  }
+  tail.x = eval(`snake[snake.length-1].${operations[tailDir][0]}`);
+  tail.y = eval(`snake[snake.length-1].${operations[tailDir][1]}`);
   return tail;
 };
 

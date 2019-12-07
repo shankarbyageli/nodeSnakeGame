@@ -1,3 +1,5 @@
+const {stdin, stdout} = process;
+
 let snake = [
   {
     dir : 1,
@@ -28,7 +30,7 @@ let food = {
 
 let score = 0;
 
-process.stdin.setRawMode(true);
+stdin.setRawMode(true);
 
 const autoRunGame = function() {
   const keyStroke = ['w','d','s','a'];
@@ -65,20 +67,20 @@ const moveIndir = function() {
 };
 
 const drawSnakeAndFood = function(snake, food) {
-  process.stdout.cursorTo(food.x, food.y);
-  console.log("*");
+  stdout.cursorTo(food.x, food.y);
+  stdout.write("*");
   for(i in snake) {
-    process.stdout.cursorTo(snake[i].x, snake[i].y);
-    console.log('o');
+    stdout.cursorTo(snake[i].x, snake[i].y);
+    stdout.write('o');
   }
 };
 
 const printScore = function(score) {
-  const rows = process.stdout.rows;
-  const columns = process.stdout.columns;
-  process.stdout.cursorTo(0, rows-2);
+  const rows = stdout.rows;
+  const columns = stdout.columns;
+  stdout.cursorTo(0, rows-2);
   console.log("-".repeat(columns));
-  process.stdout.cursorTo(columns-12,rows-1);
+  stdout.cursorTo(columns-12,rows-1);
   console.log("Score : ",score);
 };
 
@@ -90,8 +92,8 @@ const generateNewFood = function() {
 };
 
 const crashedToWall = function() {
-  const width = process.stdout.columns;
-  const height = process.stdout.rows - 2;
+  const width = stdout.columns;
+  const height = stdout.rows - 2;
   return (snake[0].x < 0 || snake[0].y < 0) || (snake[0].x >= width || snake[0].y >= height);
 };
 
@@ -145,9 +147,9 @@ const getNewTailCords = function() {
 
 let gamePlay = function(input) {
   if(input == 'q') {
-    console.log("Score : ",score);
+    console.log("\nScore : ",score);
     console.log("You exited the game !");
-    process.stdout.write('\x1B[?25h');
+    console.log('\x1B[?25h');
     process.exit(0);
   }
   input = input.toString();
@@ -159,31 +161,30 @@ let gamePlay = function(input) {
     }
     changeDirection(moveDir);
   }
-  console.clear();
-  
+  console.clear();  
   printScore(score);
   drawSnakeAndFood(snake, food);
   checkFoodAte(snake, food);
 
   if(isTouchBody()) {
-    console.log("Score : ",score);
+    console.log("\nScore : ",score);
     console.log("Touched snake body! Game over!");
-    process.stdout.write('\x1B[?25h');
+    console.log('\x1B[?25h');
     process.exit(0);
   }
   if(crashedToWall()) {
-    console.log("Score : ",score);
+    console.log("\nScore : ",score);
     console.log("You crashed to wall ! Game Over !");
-    process.stdout.write('\x1B[?25h');
+    console.log('\x1B[?25h');
     process.exit(0);
   }
 };
 
 const main = function() {
-  process.stdin.on('data', (input) => {
+  stdin.on('data', (input) => {
     gamePlay(input);
   });
-  process.stdout.write('\x1B[?25l');
+  console.log('\x1B[?25l');
   setInterval(autoRunGame, 300);
 };
 

@@ -121,6 +121,13 @@ const checkFoodAte = function() {
   }
 };
 
+const gameOverMsg = function(string) {
+  console.log("\nScore : ",score);
+  console.log(string);
+  console.log('\x1B[?25h');
+  process.exit(0);
+};
+
 const getNewTailCords = function() {
   let tail = {};
   const tailDir = snake[snake.length-1].dir;
@@ -147,10 +154,7 @@ const getNewTailCords = function() {
 
 let gamePlay = function(input) {
   if(input == 'q') {
-    console.log("\nScore : ",score);
-    console.log("You exited the game !");
-    console.log('\x1B[?25h');
-    process.exit(0);
+    gameOverMsg("You exited the game !");
   }
   input = input.toString();
   const keyStroke = ['w','d','s','a'];
@@ -167,16 +171,10 @@ let gamePlay = function(input) {
   checkFoodAte(snake, food);
 
   if(isTouchBody()) {
-    console.log("\nScore : ",score);
-    console.log("Touched snake body! Game over!");
-    console.log('\x1B[?25h');
-    process.exit(0);
+    gameOverMsg("Touched the snake bady !");
   }
   if(crashedToWall()) {
-    console.log("\nScore : ",score);
-    console.log("You crashed to wall ! Game Over !");
-    console.log('\x1B[?25h');
-    process.exit(0);
+    gameOverMsg("Crashed to wall !");
   }
 };
 

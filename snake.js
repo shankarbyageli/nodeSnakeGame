@@ -159,6 +159,7 @@ let gamePlay = function(input) {
   input = input.toString();
   const keyStroke = ['w','d','s','a'];
   const moveDir = keyStroke.indexOf(input); 
+  
   if(moveDir != -1) {
     if(Math.abs(moveDir-snake[0].dir)==2) {
       return ;

@@ -84,7 +84,7 @@ const generateNewFood = function() {
 
 const crashedToWall = function() {
   const width = stdout.columns;
-  const height = stdout.rows - 2;
+  const height = stdout.rows - 3;
   return (snake[0].x < 0 || snake[0].y < 0) || (snake[0].x >= width || snake[0].y >= height);
 };
 
@@ -130,9 +130,7 @@ const getNewTailCords = function() {
 };
 
 let gamePlay = function(input) {
-  if(input == 'q') {
-    gameOverMsg("You exited the game !");
-  }
+  input == 'q' && gameOverMsg("You exited the game !");
   input = input.toString();
   const keyStroke = ['w','d','s','a'];
   const moveDir = keyStroke.indexOf(input); 
@@ -148,12 +146,8 @@ let gamePlay = function(input) {
   drawSnakeAndFood(snake, food);
   checkFoodAte(snake, food);
 
-  if(isTouchBody()) {
-    gameOverMsg("Touched the snake bady !");
-  }
-  if(crashedToWall()) {
-    gameOverMsg("Crashed to wall !");
-  }
+  isTouchBody() && gameOverMsg("Touched the snake bady !");
+  crashedToWall() && gameOverMsg("Crashed to wall !");
 };
 
 const main = function() {
